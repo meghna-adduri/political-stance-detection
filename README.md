@@ -2,6 +2,19 @@
 
 Political stance detection on tweets, using the P-Stance dataset.
 
+## Approach
+
+A single model is trained across all three targets (Trump, Biden, Bernie)
+rather than a separate model per target. The target is passed as part of the
+input alongside the tweet — see `format_prompt` in `src/data.py`, which
+builds a prompt of the form "Tweet: ... Target: ... Question: Does the
+author of this tweet favor or oppose {target}? Answer:" — and the model
+predicts stance conditioned on both. Training data from all three targets is
+pooled (`src/data.py` combines the per-target CSVs into
+`data/processed/{split}_combined.csv`). A unified model also allows
+cross-target evaluation, i.e. checking performance on a target using
+examples the model wasn't trained on for that target.
+
 ## Setup
 
 Clone the repo and set up a virtual environment:
