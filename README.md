@@ -15,6 +15,14 @@ pooled (`src/data.py` combines the per-target CSVs into
 cross-target evaluation, i.e. checking performance on a target using
 examples the model wasn't trained on for that target.
 
+The base model is [Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)
+(Alibaba Cloud, Apache 2.0 license, 7.61B parameters, instruction-tuned). It
+is used consistently across all three experimental conditions: zero-shot,
+few-shot, and LoRA fine-tuning. Keeping the base model fixed across
+conditions isolates the effect of prompting versus fine-tuning, so the
+comparison between conditions is a valid ablation rather than being
+confounded by differences in the underlying model.
+
 ## Setup
 
 Clone the repo and set up a virtual environment:
@@ -28,6 +36,17 @@ pip install -r requirements.txt
 ```
 
 Core dependencies: pandas, transformers, peft, accelerate, wandb, pytest.
+
+### Compute and experiment tracking
+
+Training and inference run on [Kaggle Notebooks](https://www.kaggle.com/code)
+(free tier, T4 GPU). Kaggle requires phone verification on the account before
+it will grant GPU and internet access. The notebook environment is not
+persistent, so dependencies need to be reinstalled each session.
+
+The model is loaded in 8-bit via `BitsAndBytesConfig` to fit within the T4's
+available VRAM. Weights & Biases (wandb) is used for experiment tracking
+across all runs.
 
 ### Data
 
