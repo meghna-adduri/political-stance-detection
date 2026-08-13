@@ -15,7 +15,10 @@ def format_prompt(tweet: str, target: str) -> str:
     return (
         f"Tweet: {tweet}\n"
         f"Target: {target}\n"
-        f"Question: Does the author of this tweet favor or oppose {target}?\n"
+        f"Does the author of this tweet favor or oppose {target}? "
+        f"Respond with only the single word FAVOR or AGAINST. "
+        f"Do not begin your answer with any preamble like 'Based on the content of the tweet' or "
+        f"'Looking at the tweet.' Do not explain your reasoning.\n"
         f"Answer:"
     )
 

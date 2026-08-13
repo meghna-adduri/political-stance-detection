@@ -28,7 +28,7 @@ def get_prediction(model, tokenizer, tweet: str, target: str) -> tuple[str, str]
     with torch.no_grad():
         output_ids = model.generate(
             **inputs,
-            max_new_tokens=10,
+            max_new_tokens=50,
             do_sample=False
         )
     response = tokenizer.decode(
