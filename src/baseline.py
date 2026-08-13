@@ -19,7 +19,7 @@ def load_model():
     )
     return model, tokenizer
 
-def get_prediction(model, tokenizer, tweet: str, target: str) -> str:
+def get_prediction(model, tokenizer, tweet: str, target: str) -> tuple[str, str]:
     prompt = format_prompt(tweet, target)
     messages = [{"role": "user", "content": prompt}]
     text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
@@ -35,7 +35,7 @@ def get_prediction(model, tokenizer, tweet: str, target: str) -> str:
         output_ids[0][inputs['input_ids'].shape[1]:],
         skip_special_tokens=True
     )
-    return parse_label(response)
+    return response, parse_label(response)
 
 def parse_label(response: str) -> str:
     """Map raw model output to FAVOR/AGAINST, handling variation in phrasing."""
@@ -50,11 +50,14 @@ def parse_label(response: str) -> str:
 def run_baseline(model, tokenizer):
     test_df = load_combined('test')
 
+    raw_responses = []
     predictions = []
     for _, row in tqdm(test_df.iterrows(), total=len(test_df)):
-        pred = get_prediction(model, tokenizer, row['Tweet'], row['Target'])
+        raw, pred = get_prediction(model, tokenizer, row['Tweet'], row['Target'])
+        raw_responses.append(raw)
         predictions.append(pred)
 
+    test_df['raw_response'] = raw_responses
     test_df['prediction'] = predictions
 
     os.makedirs("data/processed", exist_ok=True)
