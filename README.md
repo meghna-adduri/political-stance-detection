@@ -23,6 +23,15 @@ conditions isolates the effect of prompting versus fine-tuning, so the
 comparison between conditions is a valid ablation rather than being
 confounded by differences in the underlying model.
 
+## Current Status
+
+The zero-shot baseline is implemented (`src/baseline.py`) and has been run
+against the full P-Stance test set using Qwen2.5-7B-Instruct. Evaluation is
+still in progress: a notable share of model outputs fail to parse into a
+clean FAVOR/AGAINST label and are marked UNKNOWN. This is under
+investigation before any results are finalized, since accuracy computed only
+over the parseable subset could be biased.
+
 ## Setup
 
 Clone the repo and set up a virtual environment:
