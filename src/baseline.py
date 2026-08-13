@@ -3,6 +3,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from sklearn.metrics import accuracy_score, f1_score
 import wandb
+from tqdm import tqdm
 
 from src.data import load_combined, format_prompt
 
@@ -50,7 +51,7 @@ def run_baseline(model, tokenizer):
     test_df = load_combined('test')
 
     predictions = []
-    for _, row in test_df.iterrows():
+    for _, row in tqdm(test_df.iterrows(), total=len(test_df)):
         pred = get_prediction(model, tokenizer, row['Tweet'], row['Target'])
         predictions.append(pred)
 
