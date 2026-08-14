@@ -1,0 +1,32 @@
+[
+  {
+    "tweet": "Dear Mr. President, thank you for signing this into law #KeepAmericaGreat #President #Nowletsgetyoureelected #republican #Trump",
+    "target": "Donald Trump",
+    "label": "FAVOR"
+  },
+  {
+    "tweet": "Sources confirm that Trump is manipulating the stock markets. Which means the rich get richer. NOT YOU. #Winning",
+    "target": "Donald Trump",
+    "label": "AGAINST"
+  },
+  {
+    "tweet": "This and so many other civil rights causes Biden has championed thru the decades is why he's winning in the South. We remember.",
+    "target": "Joe Biden",
+    "label": "FAVOR"
+  },
+  {
+    "tweet": "lol. #Biden's defense is he was too incompetent as VP to stop the escalation of the war in #Afghanistan #DemDebate",
+    "target": "Joe Biden",
+    "label": "AGAINST"
+  },
+  {
+    "tweet": "#Bernie has some really good plans so you lost me at the starting gate.",
+    "target": "Bernie Sanders",
+    "label": "FAVOR"
+  },
+  {
+    "tweet": "Crush. Kill. Destroy. Hell No to socialist takeover of the Democratic Party. #MichiganPrimary #BernieSanders",
+    "target": "Bernie Sanders",
+    "label": "AGAINST"
+  }
+]
