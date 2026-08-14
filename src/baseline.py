@@ -19,8 +19,7 @@ def load_model():
     )
     return model, tokenizer
 
-def get_prediction(model, tokenizer, tweet: str, target: str) -> tuple[str, str]:
-    prompt = format_prompt(tweet, target)
+def get_prediction(model, tokenizer, prompt: str) -> tuple[str, str]:
     messages = [{"role": "user", "content": prompt}]
     text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
     inputs = tokenizer(text, return_tensors="pt").to(model.device)
@@ -53,7 +52,8 @@ def run_baseline(model, tokenizer):
     raw_responses = []
     predictions = []
     for _, row in tqdm(test_df.iterrows(), total=len(test_df)):
-        raw, pred = get_prediction(model, tokenizer, row['Tweet'], row['Target'])
+        prompt = format_prompt(row['Tweet'], row['Target'])
+        raw, pred = get_prediction(model, tokenizer, prompt)
         raw_responses.append(raw)
         predictions.append(pred)
 
