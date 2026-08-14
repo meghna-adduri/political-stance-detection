@@ -23,14 +23,24 @@ conditions isolates the effect of prompting versus fine-tuning, so the
 comparison between conditions is a valid ablation rather than being
 confounded by differences in the underlying model.
 
-## Current Status
+## Results
 
-The zero-shot baseline is implemented (`src/baseline.py`) and has been run
-against the full P-Stance test set using Qwen2.5-7B-Instruct. Evaluation is
-still in progress: a notable share of model outputs fail to parse into a
-clean FAVOR/AGAINST label and are marked UNKNOWN. This is under
-investigation before any results are finalized, since accuracy computed only
-over the parseable subset could be biased.
+### Zero-shot baseline (Qwen2.5-7B-Instruct)
+
+Evaluated on the full P-Stance test set (2,157 examples), 0 unparseable
+responses.
+
+| Target | Accuracy | Macro-F1 |
+| --- | --- | --- |
+| Overall | 76.2% | 0.748 |
+| Joe Biden | 81.5% | 0.804 |
+| Bernie Sanders | 75.7% | 0.756 |
+| Donald Trump | 71.4% | 0.670 |
+
+The prompt is designed to elicit a single-word FAVOR/AGAINST response.
+Generation uses greedy decoding (`do_sample=False`) for reproducibility, with
+`max_new_tokens` set high enough to avoid truncating the model's response
+before it reaches an answer.
 
 ## Setup
 
