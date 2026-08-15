@@ -25,17 +25,27 @@ confounded by differences in the underlying model.
 
 ## Results
 
-### Zero-shot baseline (Qwen2.5-7B-Instruct)
+### Zero-shot vs. few-shot (Qwen2.5-7B-Instruct)
 
-Evaluated on the full P-Stance test set (2,157 examples), 0 unparseable
-responses.
+Both conditions are evaluated on the full P-Stance test set (2,157
+examples). Zero-shot had 0 unparseable responses; few-shot had 1. The
+few-shot prompt uses 6 fixed examples (one per target/label combination)
+appended to every prompt, regardless of which target is being predicted.
 
-| Target | Accuracy | Macro-F1 |
-| --- | --- | --- |
-| Overall | 76.2% | 0.748 |
-| Joe Biden | 81.5% | 0.804 |
-| Bernie Sanders | 75.7% | 0.756 |
-| Donald Trump | 71.4% | 0.670 |
+| Target | Zero-shot Acc. | Zero-shot F1 | Few-shot Acc. | Few-shot F1 |
+| --- | --- | --- | --- | --- |
+| Overall | 76.2% | 0.748 | 76.3% | 0.752 |
+| Joe Biden | 81.5% | 0.804 | 82.8% | 0.823 |
+| Bernie Sanders | 75.7% | 0.756 | 73.9% | 0.736 |
+| Donald Trump | 71.4% | 0.670 | 71.9% | 0.686 |
+
+Overall accuracy and macro-F1 are nearly unchanged between conditions, but
+that aggregate hides a real split underneath: few-shot improves both
+accuracy and F1 on Biden and Trump, while decreasing both on Bernie
+Sanders. Trump is the weakest target under both conditions. Since the same
+6 examples are used for every prediction rather than being selected per
+target, this suggests few-shot prompting affects targets unevenly rather
+than uniformly helping or hurting.
 
 The prompt is designed to elicit a single-word FAVOR/AGAINST response.
 Generation uses greedy decoding (`do_sample=False`) for reproducibility, with
