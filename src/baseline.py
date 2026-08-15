@@ -65,14 +65,14 @@ def run_baseline(model, tokenizer):
 
     return test_df
 
-def evaluate_and_log(test_df):
+def evaluate_and_log(test_df, run_name: str):
     valid = test_df[test_df['prediction'] != 'UNKNOWN']
     dropped = len(test_df) - len(valid)
 
     acc = accuracy_score(valid['Stance'], valid['prediction'])
     macro_f1 = f1_score(valid['Stance'], valid['prediction'], average='macro')
 
-    wandb.init(project="political-stance-detection", name="zeroshot-qwen2.5-7b")
+    wandb.init(project="political-stance-detection", name=run_name)
     wandb.log({
         "accuracy": acc,
         "macro_f1": macro_f1,
